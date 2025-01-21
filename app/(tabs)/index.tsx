@@ -1,74 +1,290 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { MaterialIcons, FontAwesome, Feather } from "@expo/vector-icons";
+import DoctorCard from "@/components/DoctorCard";
+import HealthArticle from "@/components/HealthArticle";
+import React from "react";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+const handleBookAppointment = () => {
+  alert("Book Appointment");
+};
 
-export default function HomeScreen() {
+const Dashboard: React.FC = () => {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <View style={styles.container}>
+      <ScrollView style={styles.sView}>
+        {/* Header Section */}
+        <View style={styles.header}>
+          {/* User Greeting */}
+          <View style={styles.userGreeting}>
+            <Image
+              source={require("@/assets/images/doc.png")}
+              style={styles.profileImage}
+            />
+            <View>
+              <Text style={styles.greetingText}>Hi, Welcome Back,</Text>
+              <Text style={styles.userName}>John Doe William</Text>
+            </View>
+          </View>
+          <View style={styles.containerDes}>
+            {/* Text Section */}
+            <View style={styles.textContainerDes}>
+              <Text style={styles.titleDes}>Medical Center</Text>
+              <Text style={styles.descriptionDes}>
+                Eyes are essential to how we experience the world. Proper eye
+                care is the foundation for preserving sight and ensuring a
+                lifetime of clarity and vision.
+              </Text>
+            </View>
+
+            <View>
+              <Image
+                source={require("@/assets/images/doc-f.png")}
+                style={styles.imageDes}
+              />
+            </View>
+          </View>
+        </View>
+
+        {/* Main Content */}
+        <View style={styles.mainContent}>
+          {/* Top Doctors Section */}
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Top Doctors</Text>
+            <TouchableOpacity>
+              <Text style={styles.seeAll}>See All</Text>
+            </TouchableOpacity>
+          </View>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.horizontalScroll}
+          >
+            <DoctorCard
+              name="Dr. John Tauhid"
+              specialty="Cardiologist"
+              rating={4.8}
+              date="16th Jan 2025"
+              time="10:30 AM"
+              onPress={handleBookAppointment}
+            />
+
+            <DoctorCard
+              name="Dr. John Doe"
+              specialty="Cardiologist"
+              rating={4.8}
+              date="16th Jan 2025"
+              time="10:30 AM"
+              onPress={handleBookAppointment}
+            />
+          </ScrollView>
+
+          <HealthArticle />
+
+          <View style={styles.appContainer}>
+            <Text style={styles.title}>
+              Book Appointments in <Text style={styles.bold}>3 easy steps</Text>
+            </Text>
+
+            <View style={styles.step}>
+              <View style={styles.iconContainer}>
+                <Feather name="search" size={20} color="#FFFFFF" />
+              </View>
+              <Text style={styles.stepText}>
+                Search for doctors by{" "}
+                <Text style={styles.bold}>speciality</Text>,{" "}
+                <Text style={styles.bold}>service</Text> or{" "}
+                <Text style={styles.bold}>disease</Text>
+              </Text>
+            </View>
+
+            {/* Step 2 */}
+            <View style={styles.step}>
+              <View style={styles.iconContainer}>
+                <MaterialIcons
+                  name="bookmark-border"
+                  size={24}
+                  color="#FFFFFF"
+                />
+              </View>
+              <Text style={styles.stepText}>
+                Book and <Text style={styles.bold}>confirmed appointment</Text>{" "}
+                within seconds
+              </Text>
+            </View>
+
+            {/* Step 3 */}
+            <View style={styles.step}>
+              <View style={styles.iconContainer}>
+                <View style={styles.roundBorder}>
+                  <Feather name="check" size={15} color="#FFFFFF" />
+                </View>
+              </View>
+              <Text style={styles.stepText}>
+                Select based on <Text style={styles.bold}>experience</Text>,{" "}
+                <Text style={styles.bold}>fee</Text> or{" "}
+                <Text style={styles.bold}>rating</Text>
+              </Text>
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+    </View>
   );
-}
+};
+
+export default Dashboard;
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    flex: 1,
+    backgroundColor: "#2E004F",
   },
-  stepContainer: {
-    gap: 8,
+  sView: {
+    marginBottom: 40,
+    marginTop: 14,
+  },
+  header: {
+    padding: 16,
+  },
+  userGreeting: {
+    flexDirection: "row",
+    alignItems: "center",
+    fontSize: 24,
+  },
+  profileImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginRight: 16,
+  },
+  greetingText: {
+    color: "#B1A5A5",
+    fontSize: 16,
+  },
+  userName: {
+    color: "#FFFFFF",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  //Description
+  containerDes: {
+    flexDirection: "row",
+    backgroundColor: "#C4521A",
+    padding: 20,
+    borderRadius: 12,
+    alignItems: "center",
+    marginTop: 20,
+    marginBottom: 20,
+  },
+  textContainerDes: {
+    flex: 1,
+    marginRight: 28,
+  },
+  titleDes: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#FFFFFF",
     marginBottom: 8,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
+  descriptionDes: {
+    fontSize: 11,
+    color: "#FFFFFF",
+    lineHeight: 20,
+  },
+  imageDes: {
+    width: 160,
+    height: 160,
+    borderRadius: 8,
+    marginLeft: -40,
+    marginBottom: -20,
+  },
+  mainContent: {
+    padding: 16,
+    backgroundColor: "#FFFFFF",
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+  },
+  sectionHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 16,
+    marginTop: 10,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#333333",
+  },
+  seeAll: {
+    color: "#6200EE",
+    fontSize: 14,
+    paddingRight: 8,
+  },
+  horizontalScroll: {
+    marginBottom: 16,
+  },
+  //Appointment
+  appContainer: {
+    padding: 16,
+    backgroundColor: "#FFFFFF",
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "400",
+    color: "#333333",
+    marginBottom: 20,
+    marginTop: 16,
+    marginLeft: -16,
+  },
+  bold: {
+    fontWeight: "700",
+  },
+  step: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 12,
+  },
+  iconContainer: {
+    width: 40,
+    height: 40,
+    backgroundColor: "#FF6A00",
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 12,
+  },
+  appIcon: {
+    width: 20,
+    height: 20,
+    tintColor: "#FFFFFF",
+  },
+  stepText: {
+    fontSize: 14,
+    color: "#333333",
+    flex: 1,
+  },
+  roundBorder: {
+    width: 22,
+    height: 22,
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 2,
+    borderColor: "#FFFFFF",
+  },
+  navbar: {
+    position: "absolute",
     bottom: 0,
     left: 0,
-    position: 'absolute',
+    right: 0,
+    backgroundColor: "#2E004F",
   },
 });
