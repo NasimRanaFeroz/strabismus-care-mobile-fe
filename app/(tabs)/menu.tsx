@@ -10,7 +10,7 @@ const MenuScreen: React.FC = () => {
           source={require("@/assets/images/doc.png")}
           className="w-24 h-24 rounded-full"
         />
-        <Text className="text-lg font-semibold mt-4">Dr. Muhammad Tauhid</Text>
+        <Text className="text-lg font-semibold mt-4">Dr. Muhammad +Tauhid</Text>
       </View>
 
       {/* Menu Options */}
