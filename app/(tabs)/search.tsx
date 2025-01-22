@@ -1,12 +1,87 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import { Feather, MaterialIcons } from "@expo/vector-icons";
+import DoctorCard from "@/components/DoctorCard";
 
-const search = () => {
+const SearchBarWithBadge = () => {
+  const handleBookAppointment = () => {
+    alert("Book Appointment");
+  };
+
   return (
-    <View>
-      <Text className='text-5xl'>search</Text>
-    </View>
-  )
-}
+    <View className="p-6">
+      <View className="flex-row items-center justify-between bg-white border border-gray-300 rounded-lg p-2">
+        {/* Search Input */}
+        <View className="flex-row items-center flex-1">
+          <Feather name="search" size={20} color="gray" />
+          <TextInput
+            placeholder="Physician"
+            className="ml-2 text-gray-500 flex-1"
+          />
+        </View>
 
-export default search
+        {/* Notification Badge */}
+        <TouchableOpacity className="relative">
+          <View className="bg-orange-500 w-8 h-8 rounded-lg items-center justify-center">
+            <MaterialIcons name="filter-list" size={20} color="white" />
+          </View>
+          <View className="absolute -top-1 -right-1 bg-red-500 rounded-full w-5 h-5 items-center justify-center">
+            <Text className="text-white text-xs font-bold">2</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+      <ScrollView showsHorizontalScrollIndicator={false} className="mb-4">
+        <DoctorCard
+          name="Dr. John Tauhid"
+          specialty="Cardiologist"
+          rating={4.8}
+          date="16th Jan 2025"
+          time="10:30 AM"
+          onPress={handleBookAppointment}
+        />
+
+        <DoctorCard
+          name="Dr. John Doe"
+          specialty="Cardiologist"
+          rating={4.8}
+          date="16th Jan 2025"
+          time="10:30 AM"
+          onPress={handleBookAppointment}
+        />
+
+        <DoctorCard
+          name="Dr. John Doe"
+          specialty="Cardiologist"
+          rating={4.8}
+          date="16th Jan 2025"
+          time="10:30 AM"
+          onPress={handleBookAppointment}
+        />
+        <DoctorCard
+          name="Dr. John Doe"
+          specialty="Cardiologist"
+          rating={4.8}
+          date="16th Jan 2025"
+          time="10:30 AM"
+          onPress={handleBookAppointment}
+        />
+        <DoctorCard
+          name="Dr. John Doe"
+          specialty="Cardiologist"
+          rating={4.8}
+          date="16th Jan 2025"
+          time="10:30 AM"
+          onPress={handleBookAppointment}
+        />
+      </ScrollView>
+    </View>
+  );
+};
+
+export default SearchBarWithBadge;

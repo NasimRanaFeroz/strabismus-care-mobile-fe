@@ -7,7 +7,6 @@ import {
   Text,
   Image,
   ScrollView,
-  StyleSheet,
   TouchableOpacity,
 } from "react-native";
 
@@ -17,54 +16,52 @@ const handleBookAppointment = () => {
 
 const Dashboard: React.FC = () => {
   return (
-    <View style={styles.container}>
-      <ScrollView style={styles.sView}>
+    <View className="flex-1 bg-[#2E004F]">
+      <ScrollView className="">
         {/* Header Section */}
-        <View style={styles.header}>
+        <View className="p-4 pt-8">
           {/* User Greeting */}
-          <View style={styles.userGreeting}>
+          <View className="flex-row items-center">
             <Image
               source={require("@/assets/images/doc.png")}
-              style={styles.profileImage}
+              className="w-12 h-12 rounded-full mr-4"
             />
             <View>
-              <Text style={styles.greetingText}>Hi, Welcome Back,</Text>
-              <Text style={styles.userName}>John Doe William</Text>
+              <Text className="text-[#B1A5A5] text-base">Hi, Welcome Back,</Text>
+              <Text className="text-white text-lg font-bold">John Doe William</Text>
             </View>
           </View>
-          <View style={styles.containerDes}>
+          <View className="flex-row bg-[#C4521A] p-5 rounded-lg items-center mt-5 mb-5">
             {/* Text Section */}
-            <View style={styles.textContainerDes}>
-              <Text style={styles.titleDes}>Medical Center</Text>
-              <Text style={styles.descriptionDes}>
+            <View className="flex-1 mr-7">
+              <Text className="text-2xl font-bold text-white mb-2">Medical Center</Text>
+              <Text className="text-xs text-white leading-5">
                 Eyes are essential to how we experience the world. Proper eye
                 care is the foundation for preserving sight and ensuring a
                 lifetime of clarity and vision.
               </Text>
             </View>
 
-            <View>
-              <Image
-                source={require("@/assets/images/doc-f.png")}
-                style={styles.imageDes}
-              />
-            </View>
+            <Image
+              source={require("@/assets/images/doc-f.png")}
+              className="w-40 h-40 rounded-lg -ml-10 -mb-5"
+            />
           </View>
         </View>
 
         {/* Main Content */}
-        <View style={styles.mainContent}>
+        <View className="p-4 bg-white rounded-t-2xl">
           {/* Top Doctors Section */}
-          <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Top Doctors</Text>
+          <View className="flex-row justify-between items-center mb-4 mt-2">
+            <Text className="text-lg font-bold text-[#333333]">Top Doctors</Text>
             <TouchableOpacity>
-              <Text style={styles.seeAll}>See All</Text>
+              <Text className="text-[#6200EE] text-sm pr-2">See All</Text>
             </TouchableOpacity>
           </View>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
-            style={styles.horizontalScroll}
+            className="mb-4"
           >
             <DoctorCard
               name="Dr. John Tauhid"
@@ -87,49 +84,50 @@ const Dashboard: React.FC = () => {
 
           <HealthArticle />
 
-          <View style={styles.appContainer}>
-            <Text style={styles.title}>
-              Book Appointments in <Text style={styles.bold}>3 easy steps</Text>
+          <View className="p-4 bg-white">
+            <Text className="text-lg font-normal text-[#333333] mb-5 mt-4 -ml-4">
+              Book Appointments in <Text className="font-bold">3 easy steps</Text>
             </Text>
 
-            <View style={styles.step}>
-              <View style={styles.iconContainer}>
+            {/* Step 1 */}
+            <View className="flex-row items-center mb-3">
+              <View className="w-10 h-10 bg-[#FF6A0E] rounded-full justify-center items-center">
                 <Feather name="search" size={20} color="#FFFFFF" />
               </View>
-              <Text style={styles.stepText}>
+              <Text className="ml-3">
                 Search for doctors by{" "}
-                <Text style={styles.bold}>speciality</Text>,{" "}
-                <Text style={styles.bold}>service</Text> or{" "}
-                <Text style={styles.bold}>disease</Text>
+                <Text className="font-bold">speciality</Text>,{" "}
+                <Text className="font-bold">service</Text> or{" "}
+                <Text className="font-bold">disease</Text>
               </Text>
             </View>
 
             {/* Step 2 */}
-            <View style={styles.step}>
-              <View style={styles.iconContainer}>
+            <View className="flex-row items-center mb-3">
+              <View className="w-10 h-10 bg-[#FF6A0E] rounded-full justify-center items-center">
                 <MaterialIcons
                   name="bookmark-border"
                   size={24}
                   color="#FFFFFF"
                 />
               </View>
-              <Text style={styles.stepText}>
-                Book and <Text style={styles.bold}>confirmed appointment</Text>{" "}
+              <Text className="ml-3">
+                Book and <Text className="font-bold">confirm appointment</Text>{" "}
                 within seconds
               </Text>
             </View>
 
             {/* Step 3 */}
-            <View style={styles.step}>
-              <View style={styles.iconContainer}>
-                <View style={styles.roundBorder}>
+            <View className="flex-row items-center">
+              <View className="w-10 h-10 bg-[#FF6A0E] rounded-full justify-center items-center">
+                <View className="w-8 h-8 bg-[#FF6A0E] rounded-full justify-center items-center">
                   <Feather name="check" size={15} color="#FFFFFF" />
                 </View>
               </View>
-              <Text style={styles.stepText}>
-                Select based on <Text style={styles.bold}>experience</Text>,{" "}
-                <Text style={styles.bold}>fee</Text> or{" "}
-                <Text style={styles.bold}>rating</Text>
+              <Text className="ml-3">
+                Select based on <Text className="font-bold">experience</Text>,{" "}
+                <Text className="font-bold">fee</Text> or{" "}
+                <Text className="font-bold">rating</Text>
               </Text>
             </View>
           </View>
@@ -140,151 +138,3 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#2E004F",
-  },
-  sView: {
-    marginBottom: 40,
-    marginTop: 14,
-  },
-  header: {
-    padding: 16,
-  },
-  userGreeting: {
-    flexDirection: "row",
-    alignItems: "center",
-    fontSize: 24,
-  },
-  profileImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    marginRight: 16,
-  },
-  greetingText: {
-    color: "#B1A5A5",
-    fontSize: 16,
-  },
-  userName: {
-    color: "#FFFFFF",
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  //Description
-  containerDes: {
-    flexDirection: "row",
-    backgroundColor: "#C4521A",
-    padding: 20,
-    borderRadius: 12,
-    alignItems: "center",
-    marginTop: 20,
-    marginBottom: 20,
-  },
-  textContainerDes: {
-    flex: 1,
-    marginRight: 28,
-  },
-  titleDes: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#FFFFFF",
-    marginBottom: 8,
-  },
-  descriptionDes: {
-    fontSize: 11,
-    color: "#FFFFFF",
-    lineHeight: 20,
-  },
-  imageDes: {
-    width: 160,
-    height: 160,
-    borderRadius: 8,
-    marginLeft: -40,
-    marginBottom: -20,
-  },
-  mainContent: {
-    padding: 16,
-    backgroundColor: "#FFFFFF",
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
-  },
-  sectionHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 16,
-    marginTop: 10,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#333333",
-  },
-  seeAll: {
-    color: "#6200EE",
-    fontSize: 14,
-    paddingRight: 8,
-  },
-  horizontalScroll: {
-    marginBottom: 16,
-  },
-  //Appointment
-  appContainer: {
-    padding: 16,
-    backgroundColor: "#FFFFFF",
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: "400",
-    color: "#333333",
-    marginBottom: 20,
-    marginTop: 16,
-    marginLeft: -16,
-  },
-  bold: {
-    fontWeight: "700",
-  },
-  step: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 12,
-  },
-  iconContainer: {
-    width: 40,
-    height: 40,
-    backgroundColor: "#FF6A00",
-    borderRadius: 8,
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: 12,
-  },
-  appIcon: {
-    width: 20,
-    height: 20,
-    tintColor: "#FFFFFF",
-  },
-  stepText: {
-    fontSize: 14,
-    color: "#333333",
-    flex: 1,
-  },
-  roundBorder: {
-    width: 22,
-    height: 22,
-    borderRadius: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    borderWidth: 2,
-    borderColor: "#FFFFFF",
-  },
-  navbar: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: "#2E004F",
-  },
-});
