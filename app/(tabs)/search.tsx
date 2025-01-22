@@ -31,12 +31,15 @@ const SearchBarWithBadge = () => {
           <View className="bg-orange-500 w-8 h-8 rounded-lg items-center justify-center">
             <MaterialIcons name="filter-list" size={20} color="white" />
           </View>
-          <View className="absolute -top-1 -right-1 bg-red-500 rounded-full w-5 h-5 items-center justify-center">
-            <Text className="text-white text-xs font-bold">2</Text>
-          </View>
         </TouchableOpacity>
       </View>
-      <ScrollView showsHorizontalScrollIndicator={false} className="mb-4">
+
+      {/* Doctor Cards List */}
+      <ScrollView
+        showsVerticalScrollIndicator={false} 
+        contentContainerStyle={{ paddingBottom: 16 }} 
+        className="mb-4"
+      >
         <DoctorCard
           name="Dr. John Tauhid"
           specialty="Cardiologist"

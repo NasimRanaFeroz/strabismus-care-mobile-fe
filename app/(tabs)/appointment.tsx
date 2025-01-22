@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
 
 const Calendar = () => {
   const [dates, setDates] = useState<any[]>([]);
@@ -10,13 +10,12 @@ const Calendar = () => {
   useEffect(() => {
     generateCalendar();
 
-    // Set up a timer to check for date changes at midnight
     const timer = setInterval(() => {
       const now = new Date();
       if (now.getHours() === 0 && now.getMinutes() === 0) {
-        generateCalendar(); // Regenerate the calendar when the day changes
+        generateCalendar();
       }
-    }, 60000); // Check every minute
+    }, 60000);
 
     return () => clearInterval(timer); // Clean up the timer when the component unmounts
   }, []);
@@ -69,8 +68,8 @@ const Calendar = () => {
       return {
         day: date,
         weekday: weekday,
-        month: nextMonth, // Next month
-        isNextMonth: true, // Indicates it's in the next month
+        month: nextMonth,
+        isNextMonth: true, 
       };
     });
 
@@ -87,7 +86,10 @@ const Calendar = () => {
     if (isNextMonth) {
       // Update the current month and year if the user selects a date from the next month
       const nextMonth = (new Date().getMonth() + 1) % 12;
-      const nextYear = new Date(currentYear, new Date().getMonth() + 1).getMonth() === 0 ? currentYear + 1 : currentYear;
+      const nextYear =
+        new Date(currentYear, new Date().getMonth() + 1).getMonth() === 0
+          ? currentYear + 1
+          : currentYear;
       setCurrentMonth(
         new Date(currentYear, nextMonth).toLocaleString("default", {
           month: "long",
@@ -107,7 +109,9 @@ const Calendar = () => {
         width: 64,
         height: 80,
         backgroundColor:
-          item.day === selectedDate && !item.isNextMonth ? "#2E004F" : "#E2E8F0",
+          item.day === selectedDate && !item.isNextMonth
+            ? "#2E004F"
+            : "#E2E8F0",
       }}
     >
       <Text
@@ -140,7 +144,14 @@ const Calendar = () => {
 
   return (
     <View style={{ padding: 16 }}>
-      <Text style={{ fontSize: 18, fontWeight: "bold", color: "#4A5568", marginBottom: 16 }}>
+      <Text
+        style={{
+          fontSize: 18,
+          fontWeight: "bold",
+          color: "#4A5568",
+          marginBottom: 16,
+        }}
+      >
         {currentMonth} {currentYear}
       </Text>
 
@@ -151,6 +162,207 @@ const Calendar = () => {
         renderItem={renderDateItem}
         showsHorizontalScrollIndicator={false}
         ItemSeparatorComponent={() => <View style={{ width: 8 }} />}
+      />
+
+      <Appointments />
+    </View>
+  );
+};
+
+const Appointments = () => {
+  const [activeTab, setActiveTab] = useState("All");
+
+  const appointments = [
+    {
+      id: 1,
+      time: "10:00 am - 10:30 am",
+      doctor: "Dr. Emma Mia",
+      specialty: "Retina Specialist",
+      type: "Online visit",
+      status: "Upcoming",
+    },
+    {
+      id: 2,
+      time: "08:00 am - 08:30 am",
+      doctor: "Dr. Randy Levin",
+      specialty: "Glaucoma Specialist",
+      type: "Online visit",
+      status: "Completed",
+    },
+    {
+      id: 3,
+      time: "09:00 am - 09:30 am",
+      doctor: "Dr. Zain Calzoni",
+      specialty: "Strabismus Specialist",
+      type: "Online visit",
+      status: "Canceled",
+    },
+  ];
+
+  const filteredAppointments =
+    activeTab === "All"
+      ? appointments
+      : appointments.filter((appointment) => appointment.status === activeTab);
+
+  const renderAppointmentCard = ({ item }: { item: typeof appointments[0] }) => (
+    <View
+      style={{
+        backgroundColor: "white",
+        borderRadius: 12,
+        padding: 16,
+        marginBottom: 16,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 2,
+      }}
+    >
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        {/* Doctor's Profile Image */}
+        <Image
+          source={require("@/assets/images/doc.png")}
+          style={{
+            width: 50,
+            height: 50,
+            borderRadius: 25,
+            marginRight: 16,
+          }}
+        />
+
+        {/* Appointment Details */}
+        <View style={{ flex: 1 }}>
+          <Text style={{ fontSize: 16, fontWeight: "bold", color: "#2D3748" }}>
+            {item.doctor}
+          </Text>
+          <Text style={{ fontSize: 14, color: "#718096" }}>
+            {item.specialty} · {item.type}
+          </Text>
+
+          {/* Status Badge Below Specialty */}
+          <View
+            style={{
+              marginTop: 8,
+              alignSelf: "flex-start",
+              backgroundColor:
+                item.status === "Upcoming"
+                  ? "#FEEBC8"
+                  : item.status === "Completed"
+                  ? "#C6F6D5"
+                  : "#FED7D7",
+              paddingHorizontal: 8,
+              paddingVertical: 4,
+              borderRadius: 8,
+            }}
+          >
+            <Text
+              style={{
+                color:
+                  item.status === "Upcoming"
+                    ? "#DD6B20"
+                    : item.status === "Completed"
+                    ? "#38A169"
+                    : "#E53E3E",
+                fontSize: 12,
+                fontWeight: "bold",
+              }}
+            >
+              {item.status}
+            </Text>
+          </View>
+        </View>
+      </View>
+
+      {/* Attend Now Button for Upcoming */}
+      {item.status === "Upcoming" && (
+        <TouchableOpacity
+          style={{
+            marginTop: 16,
+            backgroundColor: "#ED8936",
+            paddingVertical: 12,
+            borderRadius: 8,
+          }}
+        >
+          <Text
+            style={{
+              color: "white",
+              fontSize: 16,
+              fontWeight: "bold",
+              textAlign: "center",
+            }}
+          >
+            Attend Now
+          </Text>
+        </TouchableOpacity>
+      )}
+
+      {/* View Details Button for Completed */}
+      {item.status === "Completed" && (
+        <TouchableOpacity
+          style={{
+            marginTop: 16,
+            borderWidth: 1,
+            borderColor: "#ED8936", // Orange border
+            paddingVertical: 12,
+            borderRadius: 8,
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              color: "#ED8936", // Orange text
+              fontSize: 16,
+              fontWeight: "bold",
+            }}
+          >
+            View Details
+          </Text>
+        </TouchableOpacity>
+      )}
+    </View>
+  );
+
+  return (
+    <View style={{ marginTop: 16 }}>
+      {/* Tabs */}
+      <View style={{ flexDirection: "row", marginBottom: 16 }}>
+        {["All", "Upcoming", "Completed", "Canceled"].map((tab) => (
+          <TouchableOpacity
+            key={tab}
+            onPress={() => setActiveTab(tab)}
+            style={{
+              flex: 1,
+              alignItems: "center",
+              paddingVertical: 8,
+              borderRadius: 8,
+              backgroundColor:
+                activeTab === tab ? "#FEEBC8" : "#E2E8F0",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: "bold",
+                color: activeTab === tab ? "#DD6B20" : "#718096",
+              }}
+            >
+              {tab}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      {/* Appointments List */}
+      <FlatList
+        data={filteredAppointments}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={renderAppointmentCard}
+        contentContainerStyle={{ paddingBottom: 16 }}
+        ListEmptyComponent={
+          <Text style={{ textAlign: "center", color: "#A0AEC0", marginTop: 16 }}>
+            No appointments found.
+          </Text>
+        }
       />
     </View>
   );
