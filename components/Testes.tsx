@@ -8,7 +8,7 @@ interface TestCardProps {
 
 const TestCard: React.FC<TestCardProps> = ({ title, icon }) => {
   const handlePress = () => {
-    Alert.alert("Stay tuned", "This test will be added in the next update");
+    Alert.alert("Stay tuned", "This test will be added in future update");
   };
 
   return (
@@ -36,7 +36,6 @@ const TestCard: React.FC<TestCardProps> = ({ title, icon }) => {
 const TestsComponent = () => {
   return (
     <View style={{ padding: 16 }}>
-      {/* Header */}
       <View
         style={{
           flexDirection: "row",
@@ -51,7 +50,6 @@ const TestsComponent = () => {
         <Text style={{ fontSize: 14, color: "#FF7900" }}>See All</Text>
       </View>
 
-      {/* Test Cards */}
       <View
         style={{
           flexDirection: "row",

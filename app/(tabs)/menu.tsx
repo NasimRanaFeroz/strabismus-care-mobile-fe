@@ -2,8 +2,9 @@ import React from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import ProfileSettings from "@/components/profileSettings";
 
-const MenuScreen: React.FC = () => {
+const MenuScreen: React.FC = ({navigation }: any) => {
   return (
     <View className="flex-1 bg-white">
       {/* Header Section */}
@@ -15,12 +16,15 @@ const MenuScreen: React.FC = () => {
         <Text className="text-2xl font-semibold mt-4">Dr. Muhammad Tauhid</Text>
       </View>
 
-      {/* Menu Options */}
       <View className="mt-8">
-        <MenuItem title="Wallet" icon={<Feather name="credit-card" size={24} color="#FF7900" />} />
+        <MenuItem
+          title="Wallet"
+          icon={<Feather name="credit-card" size={24} color="#FF7900" />}
+        />
         <MenuItem
           title="Account Settings"
           icon={<Feather name="settings" size={24} color="#FF7900" />}
+          onPress={() => navigation.navigate(ProfileSettings)}
         />
         <MenuItem
           title="Change Password"
@@ -53,18 +57,18 @@ const MenuScreen: React.FC = () => {
     </View>
   );
 };
-
 interface MenuItemProps {
   title: string;
   external?: boolean;
   icon: React.ReactNode;
+  onPress?: () => void;
 }
+
 
 const MenuItem: React.FC<MenuItemProps> = ({ title, external, icon }) => {
   return (
     <TouchableOpacity className="flex-row items-center justify-between mx-8 py-4 border-b border-gray-200">
       <View className="flex-row items-center">
-        {/* Icon on the Left */}
         <View
           style={{
             backgroundColor: "#FFF7E6",
